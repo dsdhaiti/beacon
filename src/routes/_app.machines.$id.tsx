@@ -1,9 +1,9 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { AppHeader } from "@/components/app-header";
 import { Button } from "@/components/ui/button";
-import { findMachine, feedback } from "@/lib/mock-data";
+import { findMachine, feedback, getRequestsForMachine } from "@/lib/mock-data";
 import { QRPlaceholder } from "@/components/qr-placeholder";
-import { ArrowLeft, Download, Printer, MapPin, ThumbsUp, ThumbsDown } from "lucide-react";
+import { ArrowLeft, Download, Printer, MapPin, ThumbsUp, ThumbsDown, Package } from "lucide-react";
 
 export const Route = createFileRoute("/_app/machines/$id")({
   head: () => ({ meta: [{ title: "Machine — FeedbackFlow" }] }),
