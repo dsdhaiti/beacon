@@ -59,3 +59,50 @@ export const recentActivity = [
 ];
 
 export const findMachine = (id: string) => machines.find(m => m.id === id);
+
+export type ItemRequest = {
+  id: string;
+  machineId: string;
+  itemName: string;
+  requestCount: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export const itemRequests: ItemRequest[] = [
+  { id: "r1", machineId: "m1", itemName: "Celsius Energy Drink", requestCount: 15, createdAt: "2026-05-20T10:00:00Z", updatedAt: "2026-06-13T14:22:00Z" },
+  { id: "r2", machineId: "m1", itemName: "Prime Hydration", requestCount: 8, createdAt: "2026-05-22T10:00:00Z", updatedAt: "2026-06-12T09:10:00Z" },
+  { id: "r3", machineId: "m1", itemName: "Snickers Peanut Butter", requestCount: 4, createdAt: "2026-06-01T10:00:00Z", updatedAt: "2026-06-10T16:42:00Z" },
+  { id: "r4", machineId: "m3", itemName: "Celsius Energy Drink", requestCount: 3, createdAt: "2026-06-02T10:00:00Z", updatedAt: "2026-06-11T11:11:00Z" },
+  { id: "r5", machineId: "m5", itemName: "Liquid Death", requestCount: 6, createdAt: "2026-06-03T10:00:00Z", updatedAt: "2026-06-13T08:30:00Z" },
+];
+
+const normalize = (s: string) => s.trim().toLowerCase();
+
+export const submitItemRequest = (machineId: string, itemName: string) => {
+  const name = itemName.trim();
+  if (!name) return;
+  const now = new Date().toISOString();
+  const existing = itemRequests.find(
+    r => r.machineId === machineId && normalize(r.itemName) === normalize(name),
+  );
+  if (existing) {
+    existing.requestCount += 1;
+    existing.updatedAt = now;
+  } else {
+    itemRequests.push({
+      id: `r${itemRequests.length + 1}-${Date.now()}`,
+      machineId,
+      itemName: name,
+      requestCount: 1,
+      createdAt: now,
+      updatedAt: now,
+    });
+  }
+};
+
+export const getRequestsForMachine = (machineId: string) =>
+  itemRequests
+    .filter(r => r.machineId === machineId)
+    .sort((a, b) => b.requestCount - a.requestCount);
+
