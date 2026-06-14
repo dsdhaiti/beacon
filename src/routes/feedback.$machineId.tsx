@@ -2,8 +2,9 @@ import { createFileRoute, useNavigate, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { findMachine, business } from "@/lib/mock-data";
-import { ThumbsUp, ThumbsDown, Zap } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { findMachine, business, submitItemRequest } from "@/lib/mock-data";
+import { ThumbsUp, ThumbsDown, Zap, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/feedback/$machineId")({
