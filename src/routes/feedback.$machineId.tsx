@@ -123,6 +123,34 @@ function CustomerFeedback() {
           </Button>
           <p className="mt-3 text-center text-xs text-muted-foreground">Your feedback is anonymous.</p>
         </div>
+
+        <form onSubmit={submitRequest} className="mt-6 rounded-3xl border border-border bg-card p-6 shadow-soft">
+          <h2 className="text-base font-semibold">Request a Product</h2>
+          <p className="mt-1 text-xs text-muted-foreground">Tell us what you'd like to see in this machine.</p>
+          <div className="mt-4 space-y-3">
+            <Input
+              type="text"
+              value={requestItem}
+              onChange={(e) => setRequestItem(e.target.value)}
+              placeholder="What product would you like us to add?"
+              className="h-12 text-base"
+              maxLength={100}
+            />
+            <Button
+              type="submit"
+              variant="outline"
+              disabled={!requestItem.trim()}
+              className="h-12 w-full text-base"
+            >
+              {requestSubmitted ? (
+                <><Check className="mr-2 h-4 w-4" /> Request received</>
+              ) : (
+                "Request Item"
+              )}
+            </Button>
+          </div>
+        </form>
+
       </div>
     </div>
   );
