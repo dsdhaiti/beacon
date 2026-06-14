@@ -21,6 +21,7 @@ export const Route = createFileRoute("/_app/machines/$id")({
 function MachineDetail() {
   const { machine } = Route.useLoaderData();
   const machineFeedback = feedback.filter((f) => f.machineId === machine.id);
+  const requests = getRequestsForMachine(machine.id);
 
   return (
     <>
