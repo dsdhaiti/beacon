@@ -99,7 +99,7 @@ function MachineDetail() {
                       {f.rating === "positive" ? <ThumbsUp className="h-3 w-3" /> : <ThumbsDown className="h-3 w-3" />}
                       {f.rating}
                     </span>
-                    <span className="text-xs text-muted-foreground">{new Date(f.date).toLocaleString()}</span>
+                    <span className="text-xs text-muted-foreground">{formatDateUTC(f.date)}</span>
                   </div>
                   <p className="mt-2 text-sm">{f.comment}</p>
                 </li>
