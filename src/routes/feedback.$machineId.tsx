@@ -27,11 +27,23 @@ function CustomerFeedback() {
   const navigate = useNavigate();
   const [rating, setRating] = useState<"positive" | "negative" | null>(null);
   const [comment, setComment] = useState("");
+  const [requestItem, setRequestItem] = useState("");
+  const [requestSubmitted, setRequestSubmitted] = useState(false);
 
   const submit = () => {
     if (!rating) return;
     navigate({ to: "/feedback/$machineId/thanks", params: { machineId: machine.id } });
   };
+
+  const submitRequest = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!requestItem.trim()) return;
+    submitItemRequest(machine.id, requestItem);
+    setRequestItem("");
+    setRequestSubmitted(true);
+    setTimeout(() => setRequestSubmitted(false), 2500);
+  };
+
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-secondary/60 via-background to-background">
