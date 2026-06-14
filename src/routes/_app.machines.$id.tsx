@@ -18,6 +18,11 @@ export const Route = createFileRoute("/_app/machines/$id")({
   ),
 });
 
+function formatDateUTC(iso: string) {
+  const d = new Date(iso);
+  return d.toLocaleString("en-US", { timeZone: "UTC", dateStyle: "medium", timeStyle: "short" });
+}
+
 function MachineDetail() {
   const { machine } = Route.useLoaderData();
   const machineFeedback = feedback.filter((f) => f.machineId === machine.id);
