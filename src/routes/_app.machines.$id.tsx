@@ -1,9 +1,9 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { AppHeader } from "@/components/app-header";
 import { Button } from "@/components/ui/button";
-import { findMachine, feedback } from "@/lib/mock-data";
+import { findMachine, feedback, getRequestsForMachine } from "@/lib/mock-data";
 import { QRPlaceholder } from "@/components/qr-placeholder";
-import { ArrowLeft, Download, Printer, MapPin, ThumbsUp, ThumbsDown } from "lucide-react";
+import { ArrowLeft, Download, Printer, MapPin, ThumbsUp, ThumbsDown, Package } from "lucide-react";
 
 export const Route = createFileRoute("/_app/machines/$id")({
   head: () => ({ meta: [{ title: "Machine — FeedbackFlow" }] }),
@@ -18,9 +18,15 @@ export const Route = createFileRoute("/_app/machines/$id")({
   ),
 });
 
+function formatDateUTC(iso: string) {
+  const d = new Date(iso);
+  return d.toLocaleString("en-US", { timeZone: "UTC", dateStyle: "medium", timeStyle: "short" });
+}
+
 function MachineDetail() {
   const { machine } = Route.useLoaderData();
   const machineFeedback = feedback.filter((f) => f.machineId === machine.id);
+  const requests = getRequestsForMachine(machine.id);
 
   return (
     <>
@@ -84,9 +90,41 @@ function MachineDetail() {
           </div>
         </div>
 
+        {/* Requested items */}
+        <div className="mt-8 rounded-2xl border border-border bg-card p-6 shadow-soft">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-sm font-semibold">Requested Items</h3>
+              <p className="mt-1 text-xs text-muted-foreground">Products customers want added to this machine.</p>
+            </div>
+            <span className="grid h-9 w-9 place-items-center rounded-lg bg-primary/10 text-primary"><Package className="h-4 w-4" /></span>
+          </div>
+          {requests.length === 0 ? (
+            <p className="mt-4 text-sm text-muted-foreground">No product requests yet for this machine.</p>
+          ) : (
+            <ul className="mt-4 divide-y divide-border">
+              {requests.map((r, i) => (
+                <li key={r.id} className="flex items-center justify-between gap-3 py-3">
+                  <div className="flex min-w-0 items-center gap-3">
+                    <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md bg-muted text-xs font-semibold text-muted-foreground">{i + 1}</span>
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-medium">{r.itemName}</p>
+                      <p className="text-xs text-muted-foreground">Last requested {formatDateUTC(r.updatedAt)}</p>
+                    </div>
+                  </div>
+                  <span className="shrink-0 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary">
+                    {r.requestCount} {r.requestCount === 1 ? "Request" : "Requests"}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
         {/* Recent feedback */}
         <div className="mt-8 rounded-2xl border border-border bg-card p-6 shadow-soft">
           <h3 className="text-sm font-semibold">Recent feedback</h3>
+
           {machineFeedback.length === 0 ? (
             <p className="mt-3 text-sm text-muted-foreground">No feedback yet for this machine.</p>
           ) : (
@@ -98,7 +136,7 @@ function MachineDetail() {
                       {f.rating === "positive" ? <ThumbsUp className="h-3 w-3" /> : <ThumbsDown className="h-3 w-3" />}
                       {f.rating}
                     </span>
-                    <span className="text-xs text-muted-foreground">{new Date(f.date).toLocaleString()}</span>
+                    <span className="text-xs text-muted-foreground">{formatDateUTC(f.date)}</span>
                   </div>
                   <p className="mt-2 text-sm">{f.comment}</p>
                 </li>

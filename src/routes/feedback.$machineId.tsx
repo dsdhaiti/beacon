@@ -2,8 +2,9 @@ import { createFileRoute, useNavigate, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { findMachine, business } from "@/lib/mock-data";
-import { ThumbsUp, ThumbsDown, Zap } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { findMachine, business, submitItemRequest } from "@/lib/mock-data";
+import { ThumbsUp, ThumbsDown, Zap, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/feedback/$machineId")({
@@ -26,11 +27,23 @@ function CustomerFeedback() {
   const navigate = useNavigate();
   const [rating, setRating] = useState<"positive" | "negative" | null>(null);
   const [comment, setComment] = useState("");
+  const [requestItem, setRequestItem] = useState("");
+  const [requestSubmitted, setRequestSubmitted] = useState(false);
 
   const submit = () => {
     if (!rating) return;
     navigate({ to: "/feedback/$machineId/thanks", params: { machineId: machine.id } });
   };
+
+  const submitRequest = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!requestItem.trim()) return;
+    submitItemRequest(machine.id, requestItem);
+    setRequestItem("");
+    setRequestSubmitted(true);
+    setTimeout(() => setRequestSubmitted(false), 2500);
+  };
+
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-secondary/60 via-background to-background">
@@ -110,6 +123,34 @@ function CustomerFeedback() {
           </Button>
           <p className="mt-3 text-center text-xs text-muted-foreground">Your feedback is anonymous.</p>
         </div>
+
+        <form onSubmit={submitRequest} className="mt-6 rounded-3xl border border-border bg-card p-6 shadow-soft">
+          <h2 className="text-base font-semibold">Request a Product</h2>
+          <p className="mt-1 text-xs text-muted-foreground">Tell us what you'd like to see in this machine.</p>
+          <div className="mt-4 space-y-3">
+            <Input
+              type="text"
+              value={requestItem}
+              onChange={(e) => setRequestItem(e.target.value)}
+              placeholder="What product would you like us to add?"
+              className="h-12 text-base"
+              maxLength={100}
+            />
+            <Button
+              type="submit"
+              variant="outline"
+              disabled={!requestItem.trim()}
+              className="h-12 w-full text-base"
+            >
+              {requestSubmitted ? (
+                <><Check className="mr-2 h-4 w-4" /> Request received</>
+              ) : (
+                "Request Item"
+              )}
+            </Button>
+          </div>
+        </form>
+
       </div>
     </div>
   );
