@@ -9,38 +9,206 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as FeedbackMachineIdRouteImport } from './routes/feedback.$machineId'
+import { Route as AppSettingsRouteImport } from './routes/_app.settings'
+import { Route as AppQrCodesRouteImport } from './routes/_app.qr-codes'
+import { Route as AppFeedbackRouteImport } from './routes/_app.feedback'
+import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
+import { Route as AppMachinesIndexRouteImport } from './routes/_app.machines.index'
+import { Route as FeedbackMachineIdThanksRouteImport } from './routes/feedback.$machineId.thanks'
+import { Route as AppMachinesNewRouteImport } from './routes/_app.machines.new'
+import { Route as AppMachinesIdRouteImport } from './routes/_app.machines.$id'
 
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FeedbackMachineIdRoute = FeedbackMachineIdRouteImport.update({
+  id: '/feedback/$machineId',
+  path: '/feedback/$machineId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppQrCodesRoute = AppQrCodesRouteImport.update({
+  id: '/qr-codes',
+  path: '/qr-codes',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppFeedbackRoute = AppFeedbackRouteImport.update({
+  id: '/feedback',
+  path: '/feedback',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDashboardRoute = AppDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMachinesIndexRoute = AppMachinesIndexRouteImport.update({
+  id: '/machines/',
+  path: '/machines/',
+  getParentRoute: () => AppRoute,
+} as any)
+const FeedbackMachineIdThanksRoute = FeedbackMachineIdThanksRouteImport.update({
+  id: '/thanks',
+  path: '/thanks',
+  getParentRoute: () => FeedbackMachineIdRoute,
+} as any)
+const AppMachinesNewRoute = AppMachinesNewRouteImport.update({
+  id: '/machines/new',
+  path: '/machines/new',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMachinesIdRoute = AppMachinesIdRouteImport.update({
+  id: '/machines/$id',
+  path: '/machines/$id',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
+  '/dashboard': typeof AppDashboardRoute
+  '/feedback': typeof AppFeedbackRoute
+  '/qr-codes': typeof AppQrCodesRoute
+  '/settings': typeof AppSettingsRoute
+  '/feedback/$machineId': typeof FeedbackMachineIdRouteWithChildren
+  '/machines/$id': typeof AppMachinesIdRoute
+  '/machines/new': typeof AppMachinesNewRoute
+  '/feedback/$machineId/thanks': typeof FeedbackMachineIdThanksRoute
+  '/machines/': typeof AppMachinesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
+  '/dashboard': typeof AppDashboardRoute
+  '/feedback': typeof AppFeedbackRoute
+  '/qr-codes': typeof AppQrCodesRoute
+  '/settings': typeof AppSettingsRoute
+  '/feedback/$machineId': typeof FeedbackMachineIdRouteWithChildren
+  '/machines/$id': typeof AppMachinesIdRoute
+  '/machines/new': typeof AppMachinesNewRoute
+  '/feedback/$machineId/thanks': typeof FeedbackMachineIdThanksRoute
+  '/machines': typeof AppMachinesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_app': typeof AppRouteWithChildren
+  '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
+  '/_app/dashboard': typeof AppDashboardRoute
+  '/_app/feedback': typeof AppFeedbackRoute
+  '/_app/qr-codes': typeof AppQrCodesRoute
+  '/_app/settings': typeof AppSettingsRoute
+  '/feedback/$machineId': typeof FeedbackMachineIdRouteWithChildren
+  '/_app/machines/$id': typeof AppMachinesIdRoute
+  '/_app/machines/new': typeof AppMachinesNewRoute
+  '/feedback/$machineId/thanks': typeof FeedbackMachineIdThanksRoute
+  '/_app/machines/': typeof AppMachinesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/signup'
+    | '/dashboard'
+    | '/feedback'
+    | '/qr-codes'
+    | '/settings'
+    | '/feedback/$machineId'
+    | '/machines/$id'
+    | '/machines/new'
+    | '/feedback/$machineId/thanks'
+    | '/machines/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/login'
+    | '/signup'
+    | '/dashboard'
+    | '/feedback'
+    | '/qr-codes'
+    | '/settings'
+    | '/feedback/$machineId'
+    | '/machines/$id'
+    | '/machines/new'
+    | '/feedback/$machineId/thanks'
+    | '/machines'
+  id:
+    | '__root__'
+    | '/'
+    | '/_app'
+    | '/login'
+    | '/signup'
+    | '/_app/dashboard'
+    | '/_app/feedback'
+    | '/_app/qr-codes'
+    | '/_app/settings'
+    | '/feedback/$machineId'
+    | '/_app/machines/$id'
+    | '/_app/machines/new'
+    | '/feedback/$machineId/thanks'
+    | '/_app/machines/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
+  LoginRoute: typeof LoginRoute
+  SignupRoute: typeof SignupRoute
+  FeedbackMachineIdRoute: typeof FeedbackMachineIdRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,12 +216,122 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/feedback/$machineId': {
+      id: '/feedback/$machineId'
+      path: '/feedback/$machineId'
+      fullPath: '/feedback/$machineId'
+      preLoaderRoute: typeof FeedbackMachineIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_app/settings': {
+      id: '/_app/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/qr-codes': {
+      id: '/_app/qr-codes'
+      path: '/qr-codes'
+      fullPath: '/qr-codes'
+      preLoaderRoute: typeof AppQrCodesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/feedback': {
+      id: '/_app/feedback'
+      path: '/feedback'
+      fullPath: '/feedback'
+      preLoaderRoute: typeof AppFeedbackRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/dashboard': {
+      id: '/_app/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AppDashboardRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/machines/': {
+      id: '/_app/machines/'
+      path: '/machines'
+      fullPath: '/machines/'
+      preLoaderRoute: typeof AppMachinesIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/feedback/$machineId/thanks': {
+      id: '/feedback/$machineId/thanks'
+      path: '/thanks'
+      fullPath: '/feedback/$machineId/thanks'
+      preLoaderRoute: typeof FeedbackMachineIdThanksRouteImport
+      parentRoute: typeof FeedbackMachineIdRoute
+    }
+    '/_app/machines/new': {
+      id: '/_app/machines/new'
+      path: '/machines/new'
+      fullPath: '/machines/new'
+      preLoaderRoute: typeof AppMachinesNewRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/machines/$id': {
+      id: '/_app/machines/$id'
+      path: '/machines/$id'
+      fullPath: '/machines/$id'
+      preLoaderRoute: typeof AppMachinesIdRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
+interface AppRouteChildren {
+  AppDashboardRoute: typeof AppDashboardRoute
+  AppFeedbackRoute: typeof AppFeedbackRoute
+  AppQrCodesRoute: typeof AppQrCodesRoute
+  AppSettingsRoute: typeof AppSettingsRoute
+  AppMachinesIdRoute: typeof AppMachinesIdRoute
+  AppMachinesNewRoute: typeof AppMachinesNewRoute
+  AppMachinesIndexRoute: typeof AppMachinesIndexRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppDashboardRoute: AppDashboardRoute,
+  AppFeedbackRoute: AppFeedbackRoute,
+  AppQrCodesRoute: AppQrCodesRoute,
+  AppSettingsRoute: AppSettingsRoute,
+  AppMachinesIdRoute: AppMachinesIdRoute,
+  AppMachinesNewRoute: AppMachinesNewRoute,
+  AppMachinesIndexRoute: AppMachinesIndexRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
+interface FeedbackMachineIdRouteChildren {
+  FeedbackMachineIdThanksRoute: typeof FeedbackMachineIdThanksRoute
+}
+
+const FeedbackMachineIdRouteChildren: FeedbackMachineIdRouteChildren = {
+  FeedbackMachineIdThanksRoute: FeedbackMachineIdThanksRoute,
+}
+
+const FeedbackMachineIdRouteWithChildren =
+  FeedbackMachineIdRoute._addFileChildren(FeedbackMachineIdRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
+  LoginRoute: LoginRoute,
+  SignupRoute: SignupRoute,
+  FeedbackMachineIdRoute: FeedbackMachineIdRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
