@@ -111,19 +111,8 @@ function CustomerFeedback() {
           </div>
         </div>
 
-        <div className="mt-6">
-          <Button
-            type="button"
-            onClick={submit}
-            disabled={!rating}
-            size="lg"
-            className="h-14 w-full text-base"
-          >
-            Submit Feedback
-          </Button>
-          <p className="mt-3 text-center text-xs text-muted-foreground">Your feedback is anonymous.</p>
-        </div>
-
+        
+ {/* Request a Product Form */}
         <form onSubmit={submitRequest} className="mt-6 rounded-3xl border border-border bg-card p-6 shadow-soft">
           <h2 className="text-base font-semibold">Request a Product</h2>
           <p className="mt-1 text-xs text-muted-foreground">Tell us what you'd like to see in this machine.</p>
@@ -150,6 +139,22 @@ function CustomerFeedback() {
             </Button>
           </div>
         </form>
+
+        <div className="mt-6">
+          <Button
+            type="button"
+            onClick={submit}
+            disabled={!rating}
+            size="lg"
+            className="h-14 w-full text-base"
+          >
+            Submit Feedback
+          </Button>
+          <p className="mt-3 text-center text-xs text-muted-foreground">Your feedback is anonymous.</p>
+        </div>
+
+        
+       
 
       </div>
     </div>
