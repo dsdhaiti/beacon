@@ -1,0 +1,1 @@
+import{j as e}from"./index-dSdwqxH-.js";const n=()=>e.jsx("div",{className:"grid min-h-screen place-items-center bg-muted/40 px-6 text-center text-sm text-muted-foreground",children:"This QR code isn't linked to a machine yet."});export{n as notFoundComponent};
