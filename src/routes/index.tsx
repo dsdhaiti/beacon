@@ -1,6 +1,10 @@
+import React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Zap, QrCode, BarChart3, Sparkles, ArrowRight, Check, ThumbsUp } from "lucide-react";
+import { addToWaitlist } from "@/lib/api/waitlist.functions";
+import { useState } from "react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -13,6 +17,36 @@ export const Route = createFileRoute("/")({
 });
 
 function Landing() {
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [company, setCompany] = useState("");
+  const [statusMsg, setStatusMsg] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  async function handleJoin(e: React.FormEvent) {
+    e.preventDefault();
+    setStatusMsg(null);
+    setLoading(true);
+    try {
+      const res = await addToWaitlist({ data: { email, name: name || undefined, company: company || undefined } });
+      if (res?.ok) {
+        if (res.existing) setStatusMsg("You're already on the waitlist — thanks!");
+        else setStatusMsg("Thanks for joining! We'll keep you updated.");
+        setEmail("");
+        setName("");
+        setCompany("");
+      } else {
+        setStatusMsg("Could not join waitlist. Please try again later.");
+      }
+    } catch (err) {
+      setStatusMsg("Submission failed. Try again later.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  
+
   return (
     <div className="min-h-screen bg-background">
       {/* Nav */}
@@ -25,6 +59,7 @@ function Landing() {
         </Link>
         <nav className="flex items-center gap-2">
           {/* <Link to="/login"><Button variant="ghost" size="sm">Sign in</Button></Link> */}
+          <Link to="/construction"><Button variant="ghost" size="sm">Construction</Button></Link>
           <Link to="/signup"><Button size="sm">Get started</Button></Link>
         </nav>
       </header>
@@ -42,13 +77,26 @@ function Landing() {
             A QR code on the vending machine. A tap on the phone. Real feedback you can act on — without any apps to download.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link to="/signup"><Button size="lg" className="gap-2">Start free <ArrowRight className="h-4 w-4" /></Button></Link>
-            <Link to="/feedback/$machineId" params={{ machineId: "m1" }}>
-              <Button size="lg" variant="outline">See customer view</Button>
-            </Link>
+            <form onSubmit={handleJoin} className="flex w-full max-w-xl items-center gap-2">
+              <Input
+                required
+                type="email"
+                placeholder="you@company.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <Button type="submit" size="lg" className="gap-2" disabled={loading}>
+                Join the Waitlist
+              </Button>
+            </form>
           </div>
-          <p className="mt-3 text-xs text-muted-foreground">No credit card required. 5 machines free.</p>
+          <p className="mt-3 text-xs text-muted-foreground">{statusMsg ?? "No credit card required. 5 machines free."}</p>
+          <div className="mt-4 flex items-center justify-center gap-3">
+            <Link to="/construction"><Button variant="ghost">Construction</Button></Link>
+            <Link to="/signup"><Button size="sm">Get started</Button></Link>
+          </div>
         </div>
+
 
         {/* Hero preview */}
         {/* <div className="relative mx-auto mt-16 max-w-4xl">
@@ -71,6 +119,8 @@ function Landing() {
           </div>
         </div> */}
       </section>
+
+      
 
       {/* Benefits */}
       <section className="border-t border-border bg-muted/40 py-20">
@@ -125,10 +175,28 @@ function Landing() {
             ))}
           </div>
           <div className="mt-14 flex justify-center">
-            <Link to="/signup"><Button size="lg" className="gap-2">Create your account <ArrowRight className="h-4 w-4" /></Button></Link>
+
+                <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <form onSubmit={handleJoin} className="flex w-full max-w-xl items-center gap-2">
+              <Input
+                required
+                type="email"
+                placeholder="you@company.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <Button type="submit" size="lg" className="gap-2" disabled={loading}>
+                Join the Waitlist
+              </Button>
+            </form>
+          </div>
+
+            {/* <Link to="/signup"><Button size="lg" className="gap-2">Create your account <ArrowRight className="h-4 w-4" /></Button></Link> */}
           </div>
         </div>
       </section>
+
+    
 
       {/* Footer */}
       <footer className="border-t border-border py-10">
