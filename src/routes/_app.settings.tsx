@@ -1,8 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Moon, Sun } from "lucide-react";
 import { AppHeader } from "@/components/app-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { useTheme } from "@/components/theme-provider";
 import { business } from "@/lib/mock-data";
 
 export const Route = createFileRoute("/_app/settings")({
@@ -11,6 +14,9 @@ export const Route = createFileRoute("/_app/settings")({
 });
 
 function SettingsPage() {
+  const { theme, setTheme } = useTheme();
+  const isDark = theme === "dark";
+
   return (
     <>
       <AppHeader title="Settings" />
@@ -20,10 +26,30 @@ function SettingsPage() {
           className="mx-auto max-w-3xl space-y-6"
         >
           <section className="rounded-2xl border border-border bg-card p-6 shadow-soft md:p-8">
+            <h2 className="text-base font-semibold">Appearance</h2>
+            <p className="mt-1 text-sm text-muted-foreground">Customize how FeedbackFlow looks on this device.</p>
+            <div className="mt-6 flex items-center justify-between gap-4 rounded-xl border border-border bg-background p-4">
+              <div className="flex items-center gap-3">
+                {isDark ? <Moon className="size-5 text-foreground" /> : <Sun className="size-5 text-foreground" />}
+                <div>
+                  <Label htmlFor="dark-mode" className="text-sm font-medium">Dark mode</Label>
+                  <p className="text-xs text-muted-foreground">Switch between light and dark themes.</p>
+                </div>
+              </div>
+              <Switch
+                id="dark-mode"
+                checked={isDark}
+                onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
+              />
+            </div>
+          </section>
+
+          <section className="rounded-2xl border border-border bg-card p-6 shadow-soft md:p-8">
             <h2 className="text-base font-semibold">Business Information</h2>
             <p className="mt-1 text-sm text-muted-foreground">Shown to customers on the feedback page.</p>
             <div className="mt-6 grid gap-5 sm:grid-cols-2">
               <div className="space-y-2">
+
                 <Label htmlFor="business-name">Business name</Label>
                 <Input id="business-name" defaultValue={business.name} />
               </div>
