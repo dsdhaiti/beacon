@@ -24,7 +24,7 @@ function Landing() {
           <span className="text-sm font-semibold tracking-tight">FeedbackFlow</span>
         </Link>
         <nav className="flex items-center gap-2">
-          <Link to="/login"><Button variant="ghost" size="sm">Sign in</Button></Link>
+          {/* <Link to="/login"><Button variant="ghost" size="sm">Sign in</Button></Link> */}
           <Link to="/signup"><Button size="sm">Get started</Button></Link>
         </nav>
       </header>
@@ -51,7 +51,7 @@ function Landing() {
         </div>
 
         {/* Hero preview */}
-        <div className="relative mx-auto mt-16 max-w-4xl">
+        {/* <div className="relative mx-auto mt-16 max-w-4xl">
           <div className="absolute inset-x-10 -top-6 h-32 rounded-full bg-primary/20 blur-3xl" />
           <div className="relative rounded-2xl border border-border bg-card p-2 shadow-elevated">
             <div className="rounded-xl bg-gradient-to-br from-secondary via-card to-accent p-8">
@@ -69,7 +69,7 @@ function Landing() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </section>
 
       {/* Benefits */}
