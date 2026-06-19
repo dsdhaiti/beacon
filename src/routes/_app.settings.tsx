@@ -1,8 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Moon, Sun } from "lucide-react";
 import { AppHeader } from "@/components/app-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { useTheme } from "@/components/theme-provider";
 import { business } from "@/lib/mock-data";
 
 export const Route = createFileRoute("/_app/settings")({
