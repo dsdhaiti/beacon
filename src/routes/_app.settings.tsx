@@ -44,15 +44,12 @@ function SettingsPage() {
             </div>
           </section>
 
-        <form
-          onSubmit={(e) => e.preventDefault()}
-          className="mx-auto max-w-3xl space-y-6"
-        >
           <section className="rounded-2xl border border-border bg-card p-6 shadow-soft md:p-8">
             <h2 className="text-base font-semibold">Business Information</h2>
             <p className="mt-1 text-sm text-muted-foreground">Shown to customers on the feedback page.</p>
             <div className="mt-6 grid gap-5 sm:grid-cols-2">
               <div className="space-y-2">
+
                 <Label htmlFor="business-name">Business name</Label>
                 <Input id="business-name" defaultValue={business.name} />
               </div>
