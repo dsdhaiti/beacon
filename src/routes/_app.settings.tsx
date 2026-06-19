@@ -14,10 +14,36 @@ export const Route = createFileRoute("/_app/settings")({
 });
 
 function SettingsPage() {
+  const { theme, setTheme } = useTheme();
+  const isDark = theme === "dark";
+
   return (
     <>
       <AppHeader title="Settings" />
       <main className="flex-1 px-4 py-6 md:px-8 md:py-8">
+        <form
+          onSubmit={(e) => e.preventDefault()}
+          className="mx-auto max-w-3xl space-y-6"
+        >
+          <section className="rounded-2xl border border-border bg-card p-6 shadow-soft md:p-8">
+            <h2 className="text-base font-semibold">Appearance</h2>
+            <p className="mt-1 text-sm text-muted-foreground">Customize how FeedbackFlow looks on this device.</p>
+            <div className="mt-6 flex items-center justify-between gap-4 rounded-xl border border-border bg-background p-4">
+              <div className="flex items-center gap-3">
+                {isDark ? <Moon className="size-5 text-foreground" /> : <Sun className="size-5 text-foreground" />}
+                <div>
+                  <Label htmlFor="dark-mode" className="text-sm font-medium">Dark mode</Label>
+                  <p className="text-xs text-muted-foreground">Switch between light and dark themes.</p>
+                </div>
+              </div>
+              <Switch
+                id="dark-mode"
+                checked={isDark}
+                onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
+              />
+            </div>
+          </section>
+
         <form
           onSubmit={(e) => e.preventDefault()}
           className="mx-auto max-w-3xl space-y-6"
