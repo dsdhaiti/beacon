@@ -2,7 +2,7 @@ name: Feature Request
 description: Suggest a new feature or enhancement.
 title: "[Feature]: "
 labels: ["enhancement", "feature-request"]
-projects: ["beacon"]
+# projects: ["beacon"]
 assignees:
   - octocat
 
