@@ -65,12 +65,12 @@ body:
         - Other
     validations:
       required: true
-  - type: upload
-    id: mockups
-    attributes:
-      label: Mockups / Examples
-      description: Include screenshots, links, diagrams, or examples from other products if applicable.
-      placeholder: "Add references that help explain the feature."
+  # - type: upload
+  #   id: mockups
+  #   attributes:
+  #     label: Mockups / Examples
+  #     description: Include screenshots, links, diagrams, or examples from other products if applicable.
+  #     placeholder: "Add references that help explain the feature."
   - type: checkboxes
     id: terms
     attributes:
