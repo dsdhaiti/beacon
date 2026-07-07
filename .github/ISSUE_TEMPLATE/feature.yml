@@ -9,9 +9,8 @@ assignees:
 body:
   - type: markdown
     attributes:
-      value: |
+      value: 
         Thank you for helping improve this project!
-
         Before submitting a feature request, please check existing issues to see if your idea has already been suggested.
 
   - type: input
