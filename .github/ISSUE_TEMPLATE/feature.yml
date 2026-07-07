@@ -1,8 +1,8 @@
 name: Feature Request
 description: Suggest a new feature or enhancement.
 title: "[Feature]: "
-labels: ["enhancement", "feature-request", "triage"]
-projects: ["octo-org/1", "octo-org/44"]
+labels: ["enhancement", "feature-request"]
+projects: ["beacon"]
 assignees:
   - octocat
 
@@ -41,22 +41,6 @@ body:
     validations:
       required: true
 
-  - type: textarea
-    id: alternatives
-    attributes:
-      label: Alternative Solutions
-      description: Describe any alternative solutions or workarounds you've considered.
-      placeholder: What are you currently doing instead?
-
-  - type: textarea
-    id: use-case
-    attributes:
-      label: Use Case
-      description: How would this feature be used in a real-world scenario?
-      placeholder: Explain how this feature would benefit you or your organization.
-    validations:
-      required: true
-
   - type: dropdown
     id: priority
     attributes:
@@ -89,19 +73,12 @@ body:
     validations:
       required: true
 
-  - type: textarea
+  - type: upload
     id: mockups
     attributes:
       label: Mockups / Examples
       description: Include screenshots, links, diagrams, or examples from other products if applicable.
       placeholder: Add references that help explain the feature.
-
-  - type: textarea
-    id: additional-context
-    attributes:
-      label: Additional Context
-      description: Add any other information, considerations, or edge cases here.
-      placeholder: Anything else we should know?
 
   - type: checkboxes
     id: terms
