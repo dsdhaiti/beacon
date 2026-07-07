@@ -5,14 +5,12 @@ labels: ["enhancement", "feature-request"]
 projects: ["octo-org/1", "octo-org/44"]
 assignees:
   - octocat
-
 body:
   - type: markdown
     attributes:
       value: 
         Thank you for helping improve this project!
         Before submitting a feature request, please check existing issues to see if your idea has already been suggested.
-
   - type: input
     id: contact
     attributes:
@@ -21,7 +19,6 @@ body:
       placeholder: ex. email@example.com
     validations:
       required: false
-
   - type: textarea
     id: problem
     attributes:
@@ -30,7 +27,6 @@ body:
       placeholder: Describe the challenge, frustration, or limitation you are experiencing.
     validations:
       required: true
-
   - type: textarea
     id: proposed-solution
     attributes:
@@ -39,7 +35,6 @@ body:
       placeholder: Explain how you envision this feature working.
     validations:
       required: true
-
   - type: dropdown
     id: priority
     attributes:
@@ -53,7 +48,6 @@ body:
       default: 2
     validations:
       required: true
-
   - type: dropdown
     id: impact-area
     attributes:
@@ -71,14 +65,12 @@ body:
         - Other
     validations:
       required: true
-
   - type: upload
     id: mockups
     attributes:
       label: Mockups / Examples
       description: Include screenshots, links, diagrams, or examples from other products if applicable.
       placeholder: Add references that help explain the feature.
-
   - type: checkboxes
     id: terms
     attributes:
@@ -91,7 +83,6 @@ body:
           required: true
         - label: I understand that submitting a feature request does not guarantee implementation.
           required: true
-
   - type: upload
     id: attachments
     attributes:
